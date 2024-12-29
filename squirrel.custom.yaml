@@ -1,0 +1,23 @@
+patch:
+  "style/font_face": "LXGW Neo Xihei"
+  "style/label_font_point": 20
+  "style/font_point": 21
+  "style/line_spacing": 8
+  "style/color_scheme_dark": "dark_inverted"
+  "style/border_height": 0
+  "style/border_width": 0
+
+  "preset_color_schemes/dark_inverted":
+    author: "inogai <inogai.sign@gmail.com>"
+    back_color: 0x383838
+    border_color: 0x00000000
+    candidate_text_color: 0xe0e0e0
+    hilited_candidate_back_color: 0xe0e0e0
+    hilited_candidate_text_color: 0x383838
+    comment_text_color: 0xc0c0c0
+    label_color: 0x999999
+    name: "Dark, Inverted Selection"
+
+  "app_options/net.kovidgoyal.kitty":
+    ascii_mode: true
+    vim_mode: true
