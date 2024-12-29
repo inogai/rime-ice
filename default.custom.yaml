@@ -1,0 +1,9 @@
+patch:
+  "menu/page_size": 7
+  schema_list:
+    - schema: rime_ice
+    - schema: double_pinyin_flypy
+    - schema: japanese
+
+  "switcher/hotkeys":
+    - F4
