@@ -35,7 +35,7 @@ install() {
   fi
 
   echo "Pulling from repo..."
-  git --git-dir=${REPO_DIR} pull
+  git --git-dir=${REPO_DIR}/.git pull
 
   uninstall
 
