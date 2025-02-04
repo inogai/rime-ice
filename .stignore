@@ -1,5 +1,10 @@
-# Syncthing
-.stfolder
+# vi: ft=gitignore
+
+# Git
+.git
+
+# trime artifacts
+opencc/*.ocd2
 
 .DS_Store
 **/.idea/
