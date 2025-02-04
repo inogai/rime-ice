@@ -15,7 +15,7 @@ imports/*/
 dist/
 
 build/
-sync/
+# sync/
 *.userdb/
 installation.yaml
 user.yaml
