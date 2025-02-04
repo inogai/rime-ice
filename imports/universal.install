@@ -1,0 +1,145 @@
+#!/bin/bash
+
+uninstall() {
+  if [[ -f ${FILELIST} ]]; then
+    sed -i -z "s/# ${MODULE} {.*# }: ${MODULE}\n//" ${WORKSPACE_DIR}/.gitignore
+
+    for file in $(cat ${FILELIST}); do
+      rm "$WORKSPACE_DIR/$file"
+    done
+
+    rm ${FILELIST}
+
+    echo "Uninstalled ${MODULE}."
+  else
+    echo "Installation Not Found. Not uninstalling."
+  fi
+}
+
+install() {
+  if [[ ! -d ${INSTALL_DIR} ]]; then
+    echo "Installation not yet exist. Cloning from ${SOURCE_DIR}..."
+    mkdir ${INSTALL_DIR}
+
+    git clone "${SOURCE_DIR}" "${REPO_DIR}"
+  fi
+
+  echo "Pulling from repo..."
+  git --git-dir=${REPO_DIR} pull
+
+  uninstall
+
+  get_filelist
+
+  if [[ -f ${WORKSPACE_DIR}/.gitignore ]]; then
+    echo "# ${MODULE} {" >>${WORKSPACE_DIR}/.gitignore
+    cat ${FILELIST} >>${WORKSPACE_DIR}/.gitignore
+    echo "# }: ${MODULE}" >>${WORKSPACE_DIR}/.gitignore
+  fi
+
+  for file in $(cat $FILELIST); do
+    if test -f ${WORKSPACE_DIR}/$file; then
+      echo "${WORKSPACE_DIR}/$file already exist! Exiting..."
+      exit 3
+    fi
+  done
+
+  for file in $(cat $FILELIST); do
+    fullpath=${WORKSPACE_DIR}/$file
+    dir=${fullpath%/*}
+    mkdir -p $dir
+    cp ${REPO_DIR}/$file $fullpath
+  done
+
+  echo "Refreshed ${MODULE}."
+}
+
+help() {
+  echo 'Usage:'
+  echo 'universal.install -p [PKGFILE_PATH] -d [?WORKSPACE_DIR] [install|uninstall] '
+}
+
+main() {
+  while getopts ":p:h" opt; do
+    case $opt in
+    p)
+      PKGFILE=$OPTARG
+      ;;
+    h)
+      help
+      exit 3
+      ;;
+    d)
+      WORKSPACE_DIR=$OPTARG
+      ;;
+    ?)
+      echo "Unknown option ${opt} at ${OPTIND}. Exiting..."
+      help
+      exit 3
+      ;;
+    esac
+  done
+
+  shift $(($OPTIND - 1))
+
+  if [ ! -f $PKGFILE ]; then
+    echo "PKGFILE is not a file! exiting"
+    exit 3
+  fi
+
+  if [ ! -d $WORKSPACE_DIR ]; then
+    echo "WORKSPACE_DIR is not a directory! exiting"
+    exit 3
+  elif [ -z $WORKSPACE_DIR ]; then
+    WORKSPACE_DIR="$(dirname "$(dirname "$(readlink -m "${0}")")")"
+  fi
+
+  source $PKGFILE
+
+  REQUIRED_VARS=('OWNER' 'MODULE')
+  INSTALL_DIR="${WORKSPACE_DIR}/imports/${MODULE}"
+  REPO_DIR="${INSTALL_DIR}/repo"
+  SOURCE_DIR="https://github.com/${OWNER}/${MODULE}.git"
+  FILELIST="${INSTALL_DIR}/filelist"
+
+  for var in ${REQUIRED_VARS[@]}; do
+    if [ -z "${!var}" ]; then
+      echo "\$$var is empty! exiting..."
+      exit 3
+    else
+      echo "\$$var=${!var}"
+    fi
+  done
+
+  while true; do
+    read -p "Are you sure to proceed?[y/n] " yn
+    case $yn in
+    [Yy]*)
+      break
+      ;;
+    [Nn]*)
+      echo "Exiting..."
+      exit
+      ;;
+    *) echo "Please answer yes or no." ;;
+    esac
+  done
+
+  if test -z $1; then
+    echo 'No subcommand provided.'
+    help
+    exit 3
+  elif test $1 = 'install'; then
+    echo 'installing...'
+    install
+  elif test $1 = 'uninstall'; then
+    echo 'uninstalling...'
+    uninstall
+  else
+    echo 'Invalid subcommand.'
+    help
+    exit 3
+  fi
+}
+
+main $*

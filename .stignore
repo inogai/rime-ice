@@ -6,6 +6,9 @@
 # trime artifacts
 opencc/*.ocd2
 
+# Imports dir
+imports/*/repo
+
 .DS_Store
 **/.idea/
 .vscode/
