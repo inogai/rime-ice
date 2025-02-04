@@ -101,7 +101,8 @@ plus:
       }
 
 __patch:
-  "style/candidate_text_size": 26 #候选字号
+  "style/candidate_text_size": 24 # 候选字号
+  "style/candidate_view_height": 20 # 候选区高度
   style/key_height: { __include: conf/sym_height } #键高 #符号、颜文字键盘 按键高度
   preset_keys/+:
     Tab: { label: "↹", send: Tab }
