@@ -1,5 +1,15 @@
 #!/bin/bash
 
+# use gnu tools on mac
+if [[ $OSTYPE == 'darwin'* ]]; then
+  alias sed='gsed'
+  alias readlink='greadlink'
+  alias realpath='grealpath'
+  alias mktemp='gmktemp'
+
+  shopt -s expand_aliases
+fi
+
 uninstall() {
   if [[ -f ${FILELIST} ]]; then
     sed -i -z "s/# ${MODULE} {.*# }: ${MODULE}\n//" ${WORKSPACE_DIR}/.gitignore
