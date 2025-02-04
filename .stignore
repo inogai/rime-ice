@@ -7,7 +7,7 @@
 opencc/*.ocd2
 
 # Imports dir
-imports/*/repo
+imports/*/
 
 .DS_Store
 **/.idea/

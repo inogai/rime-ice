@@ -1,6 +1,9 @@
 # Syncthing
 .stfolder
 
+# Imports
+imports/*/
+
 .DS_Store
 **/.idea/
 .vscode/
