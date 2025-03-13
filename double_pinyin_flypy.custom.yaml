@@ -2,3 +2,28 @@
 patch:
   # （按需选择）清空 preedit_format 中的内容，输入时显示双拼编码
   translator/preedit_format: []
+
+  'switches/+':
+    - name: personalize
+      states: [ 羣, 群 ]
+      reset: 1
+
+  'engine/filters':
+    - lua_filter@*corrector                         # 错音错字提示
+    - reverse_lookup_filter@radical_reverse_lookup  # 部件拆字滤镜
+    - lua_filter@*autocap_filter                    # 英文自动大写
+    - lua_filter@*pin_cand_filter                   # 置顶候选项（顺序要求：置顶候选项 > Emoji > 简繁切换）
+    - lua_filter@*reduce_english_filter             # 降低部分英语单词在候选项的位置
+    - simplifier@emoji                              # Emoji
+    - simplifier@traditionalize                     # 简繁切换
+    - simplifier@personalize                        # 简繁切换
+    - lua_filter@*search@radical_pinyin             # 部件拆字辅码
+    - uniquifier                                    # 去重
+
+  'traditionalize/opencc_config': s2hk.json
+
+  personalize:
+    option_name: personalize
+    opencc_config: personalize.json
+    tips: none
+    tags: [ abc, number, gregorian_to_lunar ]
