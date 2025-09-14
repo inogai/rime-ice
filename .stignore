@@ -1,8 +1,13 @@
-# Syncthing
-.stfolder
+# vi: ft=gitignore
 
-# Fonts
-fonts/
+# Git
+.git
+
+# trime artifacts
+opencc/*.ocd2
+
+# Imports dir
+imports/*/
 
 .DS_Store
 **/.idea/
@@ -10,7 +15,7 @@ fonts/
 dist/
 
 build/
-sync/
+# sync/
 *.userdb/
 installation.yaml
 user.yaml
@@ -27,3 +32,6 @@ cn_dicts/temp.txt
 rime_console
 rime_deployer
 rime_patch
+
+rime-install
+plum
