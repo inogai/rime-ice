@@ -1,0 +1,8 @@
+name: rime-japanese
+repo_url: https://github.com/gkovacs/rime-japanese.git
+install:
+  - "japanese.dict.yaml"
+  - "japanese.jmdict.dict.yaml"
+  - "japanese.kana.dict.yaml"
+  - "japanese.mozc.dict.yaml"
+  - "japanese.schema.yaml"
