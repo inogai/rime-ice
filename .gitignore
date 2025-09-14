@@ -4,6 +4,9 @@
 # Imports
 imports/*/
 
+# Fonts
+fonts/
+
 .DS_Store
 **/.idea/
 .vscode/
