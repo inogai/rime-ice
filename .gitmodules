@@ -1,0 +1,6 @@
+[submodule ".external/repos/rime-japanese"]
+	path = .external/repos/rime-japanese
+	url = https://github.com/gkovacs/rime-japanese.git
+[submodule ".external/repos/danjing"]
+	path = .external/repos/danjing
+	url = https://github.com/nopdan/danjing.git
