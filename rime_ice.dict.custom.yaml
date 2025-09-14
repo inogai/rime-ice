@@ -1,0 +1,3 @@
+patch:
+  "import_tables/+":
+    - cn_dicts/41448

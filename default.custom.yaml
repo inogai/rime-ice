@@ -1,0 +1,11 @@
+patch:
+  "menu/page_size": 10
+  schema_list:
+    - schema: rime_ice
+    - schema: double_pinyin_flypy
+    - schema: japanese
+
+  "switcher/hotkeys":
+    - F4
+
+  # "ascii_composer/switch_key/Shift_L": noop
